@@ -19,6 +19,13 @@
     padding-top: 1%;
     padding-bottom: 10%;
 }
+#first_container {
+    
+}
+#second_container {
+    margin-top: 5%;
+    border-top: 3px solid #0094ff;
+}
 .section_wrapper {
     direction: rtl;
     display: inline-block;
@@ -40,9 +47,24 @@ h2, h3, h4, h5, h6 {
     border-bottom: 3px solid #0094ff;
     width: 35%;
 }
-    h5#details {
+    h5.details {
         width: 50%;
         border: none;
+    }
+#categories_wrapper {
+    text-align: right;
+    display: block;
+    width: 100%;
+    padding-bottom: 10px;
+    height: 130px;
+    
+}
+    #categories_wrapper li {
+    font-size: 13px;
+    text-align: right;
+    font-weight: 700;
+    border: none;
+    width: 30%;
     }
 .linkIcon {
     width: 35px; 
@@ -52,7 +74,13 @@ h2, h3, h4, h5, h6 {
     width: 160px; 
     height: auto;
 }
-#homeIcon {
+.icon_text {
+    display: none;
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+}
+.homeIcon {
     width: 35px;
 }
 table#menu {
@@ -63,7 +91,7 @@ table#menu {
 }
 footer {
     color: white;
-    font-size: 10px;
+    font-size: 12px;
     font-family: 'Courier New';
     direction: ltr;
     position: fixed;
@@ -108,7 +136,7 @@ footer {
 #furtherInstructions {
     color: red;
 }
-#statusSpan {
+.statusSpan {
     color: #0094ff;
     font-weight: 800;
 }

@@ -11,21 +11,53 @@
     <meta property="fb:admins" content="100003576000679"/>
     <link href="Style/RecordsStyle.css" rel="stylesheet" />
     <script src="Scripts/Jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            // ניהול תפריט
+            function ShutAllUp() {
+                $(".icon_text").fadeOut();
+            }
+            $("#mainSite_btn").mouseover(function () {
+                ShutAllUp();
+                $("#mainSite_text").fadeIn(1000);
+            });
+            $("#home_btn").mouseover(function () {
+                ShutAllUp();
+                $("#home_text").fadeIn(1000);
+            });
+            $("#cp_btn").mouseover(function () {
+                 ShutAllUp();
+                 $("#cp_text").fadeIn(1000);
+             });
+            $("#records_btn").mouseover(function () {
+                ShutAllUp();
+                $("#records_text").fadeIn(1000);
+            });
+        });
+    </script>
 </head>
 <body>
             <table id="menu">
-           <tr><td>
-               <a href="Home.html"> <img id="homeIcon" src="Images/home.ico" class="linkIcon" /></a>
-           </td></tr>
                 <tr><td><a href="ControlPanel.aspx">
-                <img id="ToCP" src="Images/start_here_kubuntu.ico" class="linkIcon" /> </a>
-           </td></tr>
+                <img src="Images/start_here_kubuntu.ico" class="ToCP linkIcon" id="cp_btn"/> </a>
+           </td>
+                    <td id="cp_text" class="icon_text">לוח בקרה</td>
+                </tr>
+                           <tr><td>
+               <a href="Home.html"> <img id="home_btn" src="Images/home.ico" class="linkIcon homeIcon" /></a>
+           </td>
+               <td id="home_text" class="icon_text">עמוד הבית</td>
+           </tr>
             <tr><td><a href="Records.aspx">
-                <img src="Images/back.ico" class="linkIcon" /> </a>
-           </td></tr>
-           <tr><td><a href="http://www.hamahanot-haolim.org.il/">
-                <img src="Images/site_icon.ico" class="linkIcon" /> </a>
-           </td></tr>
+                <img src="Images/back.ico" class="linkIcon" id="records_btn" /> </a>
+           </td>
+                <td id="records_text" class="icon_text">מבואת המזכירות</td>
+            </tr>
+            <tr><td><a href="http://www.hamahanot-haolim.org.il/">
+                <img src="Images/site_icon.ico" class="linkIcon" id="mainSite_btn" /> </a>
+           </td>
+                <td id="mainSite_text" class="icon_text">לאתר המחנות העולים</td>
+            </tr>
         </table>
         <script>
             window.fbAsyncInit = function () {

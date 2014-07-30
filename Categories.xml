@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<categories>
+  <category enabled="true" name="מסמכים רשמיים">formalPaper</category>
+  <category enabled="true" name="ועידת עולימפוס / מרכז תנועה">olympus</category>
+  <category enabled="true" name="פרויקטים אחרים">projects</category>
+  <category enabled="true" name="לוחות זמנים">schedule</category>
+  <category enabled="true" name="פרוטוקולים ופעולות">protocol</category>
+</categories>

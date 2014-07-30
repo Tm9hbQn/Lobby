@@ -34,70 +34,53 @@ public partial class login : System.Web.UI.Page
         // קלט משתמש
         string password = passwordBox.Text;
 
-        // מציאת הסיסמה המוצפנת
-        string path = MapPath("~/XMLFile.xml");
-        XmlDocument doc = new XmlDocument();
-        try
+        string path = MapPath("~/AdminData.xml");
+
+        bool connect = OpXML.ConfirmIdentity(password, path);
+
+        if (connect)
         {
-            using (FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            Session["connected"] = "true";
+            Response.Redirect("ControlPanel.aspx");
+        }
+        else
+        {
+            status.Text = "ההתחברות נכשלה! קוד זיהוי שגוי";
+
+            if (Session["trial"] == null)
             {
-                doc = new XmlDocument();
-                doc.Load(fileStream);
-            }
-
-            XmlNodeList nodes = doc.GetElementsByTagName("password");
-            string hashed = nodes[0].InnerText;
-
-            bool connect = BCrypt.CheckPassword(password, hashed);
-
-            if (connect)
-            {
-                Session["connected"] = "true";
-                Response.Redirect("ControlPanel.aspx");
+                Session["trial"] = "1";
+                status.Text += " נשארו לך עוד 3 נסיונות התחברות";
             }
             else
             {
-                status.Text = "ההתחברות נכשלה! קוד זיהוי שגוי";
-
-                if (Session["trial"] == null)
+                switch (Session["trial"].ToString())
                 {
-                    Session["trial"] = "1";
-                    status.Text += " נשארו לך עוד 3 נסיונות התחברות";
-                }
-                else
-                {
-                    switch (Session["trial"].ToString())
-                    {
-                        case "1":
-                            Session["trial"] = "2";
-                            status.Text += " נשארו לך עוד 2 נסיונות התחברות";
+                    case "1":
+                        Session["trial"] = "2";
+                        status.Text += " נשארו לך עוד 2 נסיונות התחברות";
 
-                            break;
-                        case "2":
-                            Session["trial"] = "3";
-                            status.Text += " נשארו לך עוד 1 נסיונות התחברות";
-                            break;
-                        case "3":
-                            HttpCookie cookie = new HttpCookie("attempts");
-                            cookie["number"] = "too much";
-                            cookie.Expires = DateTime.Now.AddMinutes(10);
-                            Response.Cookies.Add(cookie);
-                            status.Text = "נכשלת בניסיון ההתחברות 4 פעמים! נסי/ה שוב בעוד זמן קצר.";
-                            passwordBox.Enabled = false;
-                            Button1.Enabled = false;
-                            break;
-                        default:
-                            status.Text = "שגיאה לא ידועה. המערכת חוסמת את עצמה עד שהשגיאה תיפתר. אנא פנה למנהל המערכת";
-                            break;
-
-                    }
+                        break;
+                    case "2":
+                        Session["trial"] = "3";
+                        status.Text += " נשארו לך עוד 1 נסיונות התחברות";
+                        break;
+                    case "3":
+                        HttpCookie cookie = new HttpCookie("attempts");
+                        cookie["number"] = "too much";
+                        cookie.Expires = DateTime.Now.AddMinutes(10);
+                        Response.Cookies.Add(cookie);
+                        status.Text = "נכשלת בניסיון ההתחברות 4 פעמים! נסי/ה שוב בעוד זמן קצר.";
+                        passwordBox.Enabled = false;
+                        Button1.Enabled = false;
+                        break;
+                    default:
+                        status.Text = "שגיאה לא ידועה. המערכת חוסמת את עצמה עד שהשגיאה תיפתר. אנא פנה למנהל המערכת";
+                        break;
 
                 }
+
             }
-        }
-        catch
-        {
-            status.Text = "שגיאה לא ידועה. המערכת חוסמת את עצמה עד שהשגיאה תיפתר. אנא פנה למנהל המערכת";
         }
     }
 }
